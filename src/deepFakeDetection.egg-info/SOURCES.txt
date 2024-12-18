@@ -1,0 +1,14 @@
+README.md
+setup.py
+src/deepFakeDetection/__init__.py
+src/deepFakeDetection.egg-info/PKG-INFO
+src/deepFakeDetection.egg-info/SOURCES.txt
+src/deepFakeDetection.egg-info/dependency_links.txt
+src/deepFakeDetection.egg-info/top_level.txt
+src/deepFakeDetection/components/__init__.py
+src/deepFakeDetection/config/__init__.py
+src/deepFakeDetection/config/configuration.py
+src/deepFakeDetection/constants/__init__.py
+src/deepFakeDetection/entity/__init__.py
+src/deepFakeDetection/pipeline/__init__.py
+src/deepFakeDetection/utils/__init__.py
