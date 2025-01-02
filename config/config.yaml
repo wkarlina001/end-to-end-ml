@@ -1,0 +1,17 @@
+artifact_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  local_data_file: data/for-norm.tar.gz
+  unzip_dir: artifacts/data_ingestion
+
+data_transformation:
+  input_dir: /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/data_ingestion/for-norm
+  output_dir: /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/data_transformation/for-norm
+
+model_training:
+  data_dir: /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/data_transformation/for-norm/
+  train_model_path : /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/training/model.h5
+  accuracy_plot_path : /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/training/accuracy.png
+
+  
