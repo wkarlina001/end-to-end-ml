@@ -36,3 +36,4 @@ conda activate deepfake
 pip install -r requirements.txt
 ```
 
+Dataset source : https://www.kaggle.com/code/seanstepanek/deepfake-detection-cnn-5-layers/notebook
