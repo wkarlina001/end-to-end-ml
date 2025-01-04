@@ -37,11 +37,12 @@ class ConfigurationManager:
         return data_transformation_config
     
     def get_model_training_config(self) -> ModelTrainingConfig:
-        
+        config = self.config.model_training
+
         training_config = ModelTrainingConfig(
-            spectogram_data_dir = self.config.spectogram_data_dir,
-            train_model_path = self.config.train_model_path,
-            accuracy_plot_path = self.config.accuracy_plot_path,
+            spectogram_data_dir = config.spectogram_data_dir,
+            train_model_path = config.train_model_path,
+            accuracy_plot_path = config.accuracy_plot_path,
             params_epochs = self.params.EPOCHS,
             params_batch_size = self.params.BATCH_SIZE,
             params_image_size = self.params.IMAGE_SIZE,
@@ -49,3 +50,17 @@ class ConfigurationManager:
         )
 
         return training_config
+    
+    def get_evaluation_config(self) -> EvaluationConfig:
+        config = self.config.model_evaluation
+
+        eval_config = EvaluationConfig(
+            path_of_model = config.path_of_model,
+            spectogram_data_dir = config.spectogram_data_dir,
+            mlflow_uri = config.mlflow_uri,
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
+        )
+
+        return eval_config

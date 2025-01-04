@@ -49,6 +49,9 @@ class Training:
         return images, labels
 
     def create_dataset(self, subdir):
+        print(os.path.join(self.config.spectogram_data_dir, subdir, "real"))
+        x = []
+        y = []
         images, labels = self.load_images_from_path(os.path.join(self.config.spectogram_data_dir, subdir, "real"), 1)
         x += images
         y += labels
@@ -60,18 +63,25 @@ class Training:
         return x, y
     
     def train(self):
-        x_train, y_train = self.create_dataset("training")
-        x_dev, y_dev = self.create_dataset("validation")
+        x, y = self.create_dataset("validation")
+        
+        x_train, x_dev, y_train, y_dev = train_test_split(x, y, stratify=y, test_size=0.2, random_state=42)
 
         x_train_norm = np.array(x_train) / 255 # normalise
         x_dev_norm = np.array(x_dev) / 255
 
         y_train_encoded = to_categorical(y_train)
         y_dev_encoded = to_categorical(y_dev)
+        
+        print('Train image shape',x_train_norm[0].shape, '\n', len(x_train_norm))
+        print('Train labels',y_train_encoded[0], '\n', y_train_encoded.shape)
+        print('Test image shape',x_dev_norm[0].shape, '\n', len(x_dev_norm))
+        print('Test labels',y_dev_encoded[0:10], '\n', y_dev_encoded.shape)
 
         self.hist = self.model.fit(x_train_norm, y_train_encoded,
                               validation_data=(x_dev_norm, y_dev_encoded),
                               batch_size=self.config.params_batch_size, epochs=self.config.params_epochs)
+        
         self.save_model(
             path=self.config.train_model_path,
             model=self.model
@@ -92,6 +102,6 @@ class Training:
         plt.xlabel('Epoch')
         plt.ylabel('Accuracy')
         plt.legend(loc='lower right')
-        plt.show()
+        # plt.show()
         plt.savefig(self.config.accuracy_plot_path)
         plt.close()

@@ -10,8 +10,12 @@ data_transformation:
   output_dir: /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/data_transformation/for-norm
 
 model_training:
-  data_dir: /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/data_transformation/for-norm/
+  spectogram_data_dir: /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/data_transformation/for-norm/
   train_model_path : /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/training/model.h5
   accuracy_plot_path : /Users/wiwikkarlina/Documents/Escape_Plan/end-to-end-ml/artifacts/training/accuracy.png
 
+model_evaluation:
+  path_of_model: ./artifacts/training/model.h5
+  spectogram_data_dir: ./artifacts/data_transformation/for-norm/
+  mlflow_uri: https://dagshub.com/wkarlina001/end-to-end-ml.mlflow
   
