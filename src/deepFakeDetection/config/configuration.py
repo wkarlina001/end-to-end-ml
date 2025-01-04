@@ -51,7 +51,7 @@ class ConfigurationManager:
 
         return training_config
     
-    def get_evaluation_config(self) -> EvaluationConfig:
+    def get_model_evaluation_config(self) -> EvaluationConfig:
         config = self.config.model_evaluation
 
         eval_config = EvaluationConfig(

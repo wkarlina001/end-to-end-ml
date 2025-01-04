@@ -11,6 +11,11 @@ from deepFakeDetection.utils.common import read_yaml, create_directories, save_j
 from deepFakeDetection.entity.config_entity import *
 import os
 
+os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/wkarlina001/end-to-end-ml.mlflow"
+os.environ["MLFLOW_TRACKING_USERNAME"]="wkarlina001"
+os.environ["MLFLOW_TRACKING_PASSWORD"]="9e92f54fc366d8f0f6d5e6a7adce34c1a1d51177"
+
+
 class Evaluation:
     def __init__(self, config: EvaluationConfig):
         self.config = config
