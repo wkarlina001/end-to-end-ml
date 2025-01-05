@@ -52,10 +52,11 @@ class DataTransformation:
             sub_dir_list = ["fake", "real"]
             dirs = os.listdir(self.config.input_dir)
             for dir in dirs:
-                for sub_dir in sub_dir_list:
-                    src = os.path.join(self.config.input_dir, dir, sub_dir)
-                    dest = os.path.join(self.config.output_dir, dir, sub_dir)
-                    self.create_pngs_from_wavs(src, dest)
+                if dir != "training":
+                    for sub_dir in sub_dir_list:
+                        src = os.path.join(self.config.input_dir, dir, sub_dir)
+                        dest = os.path.join(self.config.output_dir, dir, sub_dir)
+                        self.create_pngs_from_wavs(src, dest)
 
         except Exception as e:
             raise e                

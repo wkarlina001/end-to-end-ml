@@ -1,0 +1,106 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/deepFakeDetection/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: eaee7a84de2248c96d7c07007fc765d3
+      size: 944
+    - path: data/for-norm.tar.gz
+      hash: md5
+      md5: 17153c08d8b8f73c64313829ebea0ae2
+      size: 6233933087
+    - path: src/deepFakeDetection/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: f9b0dd7107f526b5a7041a2c2fd99a1b
+      size: 834
+    outs:
+    - path: artifacts/data_ingestion/for-norm
+      hash: md5
+      md5: 056ceb74c90ae083fbf3ee5b35832079.dir
+      size: 6886643638
+      nfiles: 69300
+  data_transformation:
+    cmd: python src/deepFakeDetection/pipeline/stage_02_data_transformation.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: eaee7a84de2248c96d7c07007fc765d3
+      size: 944
+    - path: src/deepFakeDetection/pipeline/stage_02_data_transformation.py
+      hash: md5
+      md5: a9902c09dd9ef1ea0b00e784638d9720
+      size: 893
+    outs:
+    - path: artifacts/data_transformation/for-norm
+      hash: md5
+      md5: 5e8a2a222288a103596fd0c4aa69ef58.dir
+      size: 786086075
+      nfiles: 15432
+  training:
+    cmd: python src/deepFakeDetection/pipeline/stage_03_model_training.py
+    deps:
+    - path: artifacts/data_transformation/for-norm
+      hash: md5
+      md5: 5e8a2a222288a103596fd0c4aa69ef58.dir
+      size: 786086075
+      nfiles: 15432
+    - path: config/config.yaml
+      hash: md5
+      md5: eaee7a84de2248c96d7c07007fc765d3
+      size: 944
+    - path: src/deepFakeDetection/pipeline/stage_03_model_training.py
+      hash: md5
+      md5: a6c412a0697e48b3fc4b9a1a39b5b16c
+      size: 850
+    params:
+      params.yaml:
+        BATCH_SIZE: 8
+        CLASSES: 2
+        EPOCHS: 10
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        LEARNING_RATE: 0.001
+    outs:
+    - path: artifacts/training/model.h5
+      hash: md5
+      md5: 6647a501c7a7bac90f90327a73b4fd8e
+      size: 230587368
+  evaluation:
+    cmd: python src/deepFakeDetection/pipeline/stage_04_model_evaluation.py
+    deps:
+    - path: artifacts/data_transformation/for-norm
+      hash: md5
+      md5: 5e8a2a222288a103596fd0c4aa69ef58.dir
+      size: 786086075
+      nfiles: 15432
+    - path: artifacts/training/model.h5
+      hash: md5
+      md5: 6647a501c7a7bac90f90327a73b4fd8e
+      size: 230587368
+    - path: config/config.yaml
+      hash: md5
+      md5: eaee7a84de2248c96d7c07007fc765d3
+      size: 944
+    - path: src/deepFakeDetection/pipeline/stage_04_model_evaluation.py
+      hash: md5
+      md5: 9ff029b4075b9c201dd2ef9a575b0eb7
+      size: 861
+    params:
+      params.yaml:
+        BATCH_SIZE: 8
+        CLASSES: 2
+        EPOCHS: 10
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        LEARNING_RATE: 0.001
+    outs:
+    - path: scores.json
+      hash: md5
+      md5: 93defcec5d3d81f66a2fe91f158058b2
+      size: 69
